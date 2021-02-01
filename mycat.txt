@@ -1,0 +1,64 @@
+Mycat学习
+
+一. 冷备份，手动导数据
+二. 热备份
+
+三. mysql linux版本的安装
+	1. 将linux版本的mysql数据库装进linux系统中，解压 tar -xvf xxxxxxxxxx.tar
+	2. 安装mysql数据库 
+			rpm -ivh Percona-Server-56-debuginfo-5.6.24-rel72.2.el6.x86_64.rpm
+			rpm -ivh Percona-Server-shared-56-5.6.24-rel72.2.el6.x86_64.rpm
+			rpm -ivh Percona-Server--client-56-5.6.24-rel72.2.el6.x86_64.rpm
+			rpm -ivh Percona-Server-server-56-5.6.24-rel72.2.el6.x86_64.rpm
+	3. 启动mysql数据库
+			service mysql start
+			service mysql restart
+			service mysql stop
+	4. 给数据库设定用户名和密码
+			mysqladmin -u root password root
+	5. 将sql文件放到linux里面
+	6. 登录mysql
+			mysql -u root -p root  (进入mysql客户端)
+	7. 导入数据库（在mysql客户端里面运行）
+			source jtdb.sql;
+	8. 开发数据库权限
+			grant all on *.* 'root'@'%' identified by 'root';
+			
+四. 主从结构的搭建  
+	1. 编辑文件 vim /etc/my.cnf  (开启二进制文件)
+		加入server-id=1   （每台server-id 不一样）
+			log-bin=mysql-bin  （可以一样）
+		改完了之后需要重启mysql服务
+		
+	cd /var/lib/mysql  查看多了两个二进制文件
+	
+
+五. 从机挂载主
+	主机 192.168.0.128
+	从机 192.168.0.129
+	查看主机的二进制文件信息  show master status;
+	从机挂载    CHANGE MASTER TO 
+				MASTER_HOST="192.168.0.128",
+				MASTER_PORT=3306,
+				MASTER_USER="root",
+				MASTER_PASSWORD="root",
+				MASTER_LOG_FILE="mysql-bin.000001",
+				MASTER_LOG_POS=120
+	启动主从服务
+				start slave
+	检查主从结构是否正确
+				show slave status;
+	程序报错，关闭从服务器
+				stop slave
+	
+六. Mycat
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
