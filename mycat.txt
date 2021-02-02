@@ -18,7 +18,7 @@ Mycat学习
 			mysqladmin -u root password root
 	5. 将sql文件放到linux里面
 	6. 登录mysql
-			mysql -u root -p root  (进入mysql客户端)
+			mysql -u root -p   Enter   root  (进入mysql客户端)
 	7. 导入数据库（在mysql客户端里面运行）
 			source jtdb.sql;
 	8. 开发数据库权限
