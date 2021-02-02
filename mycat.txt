@@ -21,7 +21,7 @@ Mycat学习
 			mysql -u root -p   Enter   root  (进入mysql客户端)
 	7. 导入数据库（在mysql客户端里面运行）
 			source jtdb.sql;
-	8. 开发数据库权限
+	8. 开发数据库权限 （在mysql客户端里面运行）
 			grant all on *.* to 'root'@'%' identified by 'root';
 			
 四. 主从结构的搭建  
