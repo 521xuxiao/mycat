@@ -18,13 +18,13 @@ Mycat学习
 			mysqladmin -u root password root
 	5. 将sql文件放到linux里面
 	6. 登录mysql
-			mysql -u root -p   Enter   root  (进入mysql客户端)
+			mysql -u root -p root  (进入mysql客户端)
 	7. 导入数据库（在mysql客户端里面运行）
 			source jtdb.sql;
-	8. 开发数据库权限 （在mysql客户端里面运行）
-			grant all on *.* to 'root'@'%' identified by 'root';
+	8. 开发数据库权限
+			grant all on *.* 'root'@'%' identified by 'root';
 			
-四. 主从结构的搭建  
+四. 开启二进制文件，目的为了主从挂载 
 	1. 编辑文件 vim /etc/my.cnf  (开启二进制文件)
 		加入server-id=1   （每台server-id 不一样）
 			log-bin=mysql-bin  （可以一样）
@@ -51,8 +51,30 @@ Mycat学习
 	程序报错，关闭从服务器
 				stop slave
 	
-六. Mycat
+六. Mycat（数据库中间件，解压之后修改一下配置文件就可以直接起来服务用了）
+		实现数据库的分库分表，读写分离，主从复制，高可用
+		mycat拆分数据库分为垂直拆分和水平拆分
+		1.垂直拆分：一个数据库里面拆出来用户表数据库和订单数据库
+		2.水平拆分：一个订单库（1千万）拆成两个订单库（每个500万条数据）
+	安装mycat主要修改两个配置文件
+		1.server.xml 主要修改链接数据库的一些信息
+			92行 配的用户名
+			93行 配的密码
+			95行 jtdb为逻辑库，真实已经拆成其它的库了，此库已经不存在了
+			mycat默认端口8066
+		2.schema.xml 
+			6行 schema标签里面的name属性对应server.xml文件里面的jtdb逻辑库，
+			     dataNode属性对应下面的9行的 dataNode标签， 里面写的连接的真实的数据库，可以写多个 用逗号隔开
+			9行的标签可以写多个，和6行里面的dataNode标签对应的 
+			22行 心跳监测，简单的sql语句
+			20行标签里面配置的就是链接的真实的数据库
+			
+	启动mycat： ./mycat start  
+	状态        ./mycat status
+	停止        ./mycat stop
+	重启        ./mycat restart
 	
+	mycat起来之后就可以直接链接mycat的ip和默认端口8066
 	
 	
 	
