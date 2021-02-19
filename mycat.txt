@@ -73,9 +73,13 @@ Mycat学习
 	状态        ./mycat status
 	停止        ./mycat stop
 	重启        ./mycat restart
+<<<<<<< HEAD
+=======
 	
 	mycat起来之后就可以直接链接mycat的ip和默认端口8066
+>>>>>>> 83e3aed090f0a18323c569e75eccffd0e64fc139
 	
+	mycat起来之后就可以直接链接mycat的ip和默认端口8066
 	
 	
 	
