@@ -22,7 +22,8 @@ Mycat学习
 	7. 导入数据库（在mysql客户端里面运行）
 			source jtdb.sql;
 	8. 开发数据库权限
-			grant all on *.* 'root'@'%' identified by 'root';
+			grant all on *.* 'root'@'%' identified by 'root';   开启所有的权限
+			grant replication slave on *.* to 'slave'@'%' identified by '123123';  给slave用户开启权限
 			
 四. 开启二进制文件，目的为了主从挂载 
 	1. 编辑文件 vim /etc/my.cnf  (开启二进制文件)
